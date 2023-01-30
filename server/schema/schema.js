@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     fullName: { type: GraphQLString },
     email: { type: GraphQLString },
-    schooldId: { type: GraphQLString },
+    schoolId: { type: GraphQLString },
   }),
 });
 
