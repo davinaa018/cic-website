@@ -9,6 +9,7 @@ const {
   GraphQLSchema,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLInt,
 } = require("graphql");
 
 const EventType = new GraphQLObjectType({
@@ -28,6 +29,12 @@ const UserType = new GraphQLObjectType({
     fullName: { type: GraphQLString },
     email: { type: GraphQLString },
     schoolId: { type: GraphQLString },
+    attendanceCount: {
+      type: GraphQLInt,
+      resolve: (user) => {
+        return user.attendanceCount;
+      },
+    },
   }),
 });
 

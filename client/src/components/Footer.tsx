@@ -1,8 +1,19 @@
 import logo from "../assets/logo-nobg.png";
 import { AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import { FaDiscord } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-const Footer = () => {
+interface Props {
+  showLink: boolean;
+}
+
+const Footer: React.FC<Props> = ({ showLink }) => {
+  const [localShowLink, setLocalShowLink] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLocalShowLink(showLink);
+  }, [showLink]);
+
   return (
     <div className="bg-black w-full h-full p-4">
       {/* Top Container */}
@@ -29,9 +40,11 @@ const Footer = () => {
               About Us
             </a>
             {/* Temporary */}
-            <a href="#" className="text-xs md:text-sm">
-              Attendance
-            </a>
+            {localShowLink && (
+              <a href="#" className="text-xs md:text-sm">
+                Attendance
+              </a>
+            )}
           </div>
         </div>
 

@@ -1,9 +1,11 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
+import HomeSection from "./components/HomeSection";
 import NavBar from "./components/NavBar";
 import About from "./pages/About";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import News from "./pages/News";
 
 const cache = new InMemoryCache({
@@ -31,18 +33,34 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const storedValue = localStorage.getItem("showLink");
+  const [showLink, setShowLink] = useState<boolean>(
+    storedValue !== null ? JSON.parse(storedValue) : false
+  );
+
+  useEffect(() => {
+    localStorage.setItem("showLink", JSON.stringify(showLink));
+    return () => {
+      localStorage.removeItem("showLink");
+    };
+  }, [showLink]);
+
   return (
     <>
       <ApolloProvider client={client}>
         <Router>
-          <NavBar />
+          <NavBar showLink={showLink} />
           <hr />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomeSection />} />
             <Route path="/news" element={<News />} />
             <Route path="/about" element={<About />} />
+            <Route
+              path="/admin-dashboard"
+              element={<Dashboard setShowLink={setShowLink} />}
+            />
           </Routes>
-          <Footer />
+          <Footer showLink={showLink} />
         </Router>
       </ApolloProvider>
     </>

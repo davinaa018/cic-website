@@ -7,6 +7,7 @@ const GET_USERS = gql`
       fullName
       email
       schoolId
+      attendanceCount
     }
   }
 `;
@@ -18,8 +19,9 @@ const GET_USER = gql`
       fullName
       email
       schoolId
+      attendanceCount
     }
   }
 `;
 
-export { GET_USERS };
+export { GET_USERS, GET_USER };
