@@ -84,20 +84,36 @@ const mutation = new GraphQLObjectType({
       },
       async resolve(parent, args) {
         const user = await User.findOne({ email: args.email });
-        if (!user) {
-          const newUser = await new User({
-            fullName: args.fullName,
-            email: args.email,
-            schoolId: args.schoolId,
-            attendanceCount: 1,
-          });
-          return newUser.save();
+        if (user) {
+          // check if user has signed up within the last 24 hours
+          const lastSignupTimestamp = user.lastSignupTimestamp;
+          const nowTimestamp = Date.now();
+          const hoursSinceLastSignup =
+            (nowTimestamp - lastSignupTimestamp) / 3600000; // 3600000 ms = 1 hour
+          if (hoursSinceLastSignup < 24) {
+            throw new Error("You can only sign up once every 24 hours.");
+          }
+          // update user's last signup timestamp
+          await User.updateOne(
+            { _id: user._id },
+            { $set: { lastSignupTimestamp: nowTimestamp } }
+          );
+          // increment attendance count
+          await User.updateOne(
+            { _id: user._id },
+            { $inc: { attendanceCount: 1 } }
+          );
+          return user;
         }
-        await User.updateOne(
-          { _id: user._id },
-          { $inc: { attendanceCount: 1 } }
-        );
-        return user;
+        // create new user
+        const newUser = await new User({
+          fullName: args.fullName,
+          email: args.email,
+          schoolId: args.schoolId,
+          attendanceCount: 1,
+          lastSignupTimestamp: Date.now(),
+        });
+        return newUser.save();
       },
     },
     // ADD EVENT

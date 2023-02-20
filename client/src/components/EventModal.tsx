@@ -1,36 +1,35 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { CREATE_USER } from "../mutations/userMutations";
-import { GET_USERS } from "../queries/userQueries";
+import { ADD_EVENT } from "../mutations/eventMutations";
+import { GET_EVENTS } from "../queries/eventQueries";
 
 interface FormData {
-  fullName: string;
-  email: string;
-  schoolId: string;
+  name: string;
+  description: string;
+  dateOfEvent: string;
 }
 
 const initialFormData: FormData = {
-  fullName: "",
-  email: "",
-  schoolId: "",
+  name: "",
+  description: "",
+  dateOfEvent: "",
 };
 
 const AttendanceModal: React.FC = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showModal, setShowModal] = useState(true);
-
-  const [createUser] = useMutation(CREATE_USER, {
+  const [addEvent] = useMutation(ADD_EVENT, {
     variables: {
-      fullName: formData.fullName,
-      email: formData.email,
-      schoolId: formData.schoolId,
+      name: formData.name,
+      description: formData.description,
+      dateOfEvent: formData.dateOfEvent,
     },
-    update(cache, { data: { createUser } }) {
-      const { users }: any = cache.readQuery({ query: GET_USERS });
+    update(cache, { data: { addEvent } }) {
+      const { events }: any = cache.readQuery({ query: GET_EVENTS });
 
       cache.writeQuery({
-        query: GET_USERS,
-        data: { users: [...users], createUser },
+        query: GET_EVENTS,
+        data: { events: [...events], addEvent },
       });
     },
   });
@@ -48,14 +47,14 @@ const AttendanceModal: React.FC = () => {
     setShowModal(false);
 
     if (
-      formData.fullName === "" ||
-      formData.email === "" ||
-      formData.schoolId === ""
+      formData.name === "" ||
+      formData.description === "" ||
+      formData.dateOfEvent === ""
     ) {
       return alert("Please fill in all fields");
     }
 
-    createUser();
+    addEvent();
 
     setFormData(initialFormData);
   };
@@ -72,45 +71,45 @@ const AttendanceModal: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h1 className="font-bold text-2xl text-center text-gray-700">
-              Attendance!!
+              Create an Event
             </h1>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="block font-bold mb-2 text-gray-700">
-                  Full Name:
+                  Name:
                 </label>
                 <input
                   type="text"
-                  name="fullName"
-                  id="fullName"
+                  name="name"
+                  id="name"
                   className="border p-2 w-full"
-                  value={formData.fullName}
+                  value={formData.name}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="mb-4">
                 <label className="block font-bold mb-2 text-gray-700">
-                  Email:
+                  Description:
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="description"
+                  name="description"
+                  id="description"
                   className="border p-2 w-full"
-                  value={formData.email}
+                  value={formData.description}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="mb-4">
                 <label className="block font-bold mb-2 text-gray-700">
-                  School ID:
+                  Date of Event:
                 </label>
                 <input
                   type="text"
-                  name="schoolId"
-                  id="schoolId"
+                  name="dateOfEvent"
+                  id="dateOfEvent"
                   className="border p-2 w-full"
-                  value={formData.schoolId}
+                  value={formData.dateOfEvent}
                   onChange={handleInputChange}
                 />
               </div>
@@ -119,7 +118,7 @@ const AttendanceModal: React.FC = () => {
                   type="submit"
                   className="border border-gray-500 text-black py-2 px-4 rounded hover:bg-gray-200"
                 >
-                  Submit
+                  Create
                 </button>
                 <button
                   className="bg-black text-white py-2 px-4 rounded ml-4 hover:bg-gray-400"

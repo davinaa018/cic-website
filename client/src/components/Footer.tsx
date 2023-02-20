@@ -2,6 +2,7 @@ import logo from "../assets/logo-nobg.png";
 import { AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import { FaDiscord } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import AttendanceModal from "./AttendanceModal";
 
 interface Props {
   showLink: boolean;
@@ -9,10 +10,15 @@ interface Props {
 
 const Footer: React.FC<Props> = ({ showLink }) => {
   const [localShowLink, setLocalShowLink] = useState<boolean>(false);
+  const [toggleModal, setToggleModal] = useState<boolean>(false);
 
   useEffect(() => {
     setLocalShowLink(showLink);
   }, [showLink]);
+
+  const handleModal = () => {
+    setToggleModal((prev) => !prev);
+  };
 
   return (
     <div className="bg-black w-full h-full p-4">
@@ -41,11 +47,12 @@ const Footer: React.FC<Props> = ({ showLink }) => {
             </a>
             {/* Temporary */}
             {localShowLink && (
-              <a href="#" className="text-xs md:text-sm">
+              <a href="#" className="text-xs md:text-sm" onClick={handleModal}>
                 Attendance
               </a>
             )}
           </div>
+          {toggleModal && <AttendanceModal />}
         </div>
 
         {/* Right Container */}
@@ -87,17 +94,17 @@ const Footer: React.FC<Props> = ({ showLink }) => {
 
       {/* Socials */}
       <div className="text-white flex mt-10 md:mt-20 gap-6 items-center justify-center  md:mr-24">
-        <div className="border rounded-full p-1 md:p-2 ">
+        <div className="border rounded-full p-1 md:p-2 hover:bg-gray-700 ">
           <a href="https://www.instagram.com/codinginterviewclub/?hl=en">
             <AiFillInstagram className="w-7 h-7 md:w-8 md:h-8" />
           </a>
         </div>
-        <div className="border rounded-full p-1 md:p-2  ">
+        <div className="border rounded-full p-1 md:p-2  hover:bg-gray-700 ">
           <a href="https://www.linkedin.com/groups/13876330/">
             <AiFillLinkedin className="w-7 h-7 md:w-8 md:h-8" />
           </a>
         </div>
-        <div className="border rounded-full p-1 md:p-2  ">
+        <div className="border rounded-full p-1 md:p-2  hover:bg-gray-700 ">
           <a href="https://discord.com/invite/KGQDtdmPak">
             <FaDiscord className="w-7 h-7 md:w-8 md:h-8" />
           </a>

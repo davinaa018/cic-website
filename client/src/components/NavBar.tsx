@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo-nobg.png";
 import AttendanceModal from "./AttendanceModal";
 
 interface Props {
@@ -28,7 +28,9 @@ const NavBar: React.FC<Props> = ({ showLink }) => {
       <div className="flex items-center justify-between p-5">
         {/* Left container */}
         <div className="flex items-center gap-2 md:gap-4">
-          <img src={logo} alt="logo" className="w-10 md:w-16" />
+          <a href="/">
+            <img src={logo} alt="logo" className="w-10 md:w-16" />
+          </a>
           <h1 className="font-bold text-base md:text-xl">
             Coding Interview Club
           </h1>
@@ -59,25 +61,32 @@ const NavBar: React.FC<Props> = ({ showLink }) => {
           <span className="block w-8 h-0.5 bg-black"></span>
         </div>
       </div>
-      {toggleMenu && <MobileMenu localShowLink={localShowLink} />}
+      {toggleMenu && (
+        <MobileMenu
+          localShowLink={localShowLink}
+          toggleModal={toggleModal}
+          handleModal={handleModal}
+        />
+      )}
       {toggleModal && <AttendanceModal />}
     </div>
   );
 };
 
-const MobileMenu = ({ localShowLink }: any) => {
+const MobileMenu = ({ localShowLink, toggleModal, handleModal }: any) => {
   return (
     <div className="md:hidden h-full w-full bg-black text-white p-10">
       <div className="flex flex-col items-center justify-center text-center gap-8 font-bold text-base">
-        <a href="#">Home</a>
-        <a href="#">News</a>
-        <a href="#">About Us</a>
+        <a href="/">Home</a>
+        <a href="/news">News</a>
+        <a href="/about">About Us</a>
         {localShowLink && (
-          <a href="#" className="font-semibold">
+          <a href="#" className="font-semibold" onClick={handleModal}>
             Attendance
           </a>
         )}
       </div>
+      {toggleModal && <AttendanceModal />}
     </div>
   );
 };

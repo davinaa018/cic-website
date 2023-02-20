@@ -1,57 +1,49 @@
-import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import Spinner from "../components/Spinner";
 import Users from "../components/Users";
-import { GET_USERS } from "../queries/userQueries";
+import EventModal from "../components/EventModal";
 
 interface Props {
   setShowLink: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface User {
-  fullName: string;
-  email: string;
-  schoolId: string;
-  attendanceCount: number;
-}
-
 const Dashboard: React.FC<Props> = ({ setShowLink }) => {
-  const [toggleLeaderboard, setToggleLeaderboard] = useState<boolean>(false);
-  const { loading, error, data } = useQuery(GET_USERS);
-  if (loading) return <Spinner />;
-  if (error) return <p>Error...</p>;
+  const [toggleEvent, setToggleEvent] = useState<boolean>(false);
 
   const handleClick = () => {
     setShowLink((prev) => !prev);
   };
 
-  const showLeaderboard = () => {
-    setToggleLeaderboard((prev) => !prev);
+  const showEventModal = () => {
+    setToggleEvent((prev) => !prev);
   };
 
   return (
     <>
-      {!loading && !error && (
-        <div>
-          <div className="p-4">
-            {/* Right Side */}
-            <button
-              className="border border-black px-3 py-2 "
-              onClick={handleClick}
-            >
-              Open Attendance
-            </button>
+      <div>
+        <div className="p-4 flex gap-4">
+          {/* Right Side */}
+          <button
+            className="border border-black px-3 py-2 transition ease-in-out hover:bg-black hover:text-white  "
+            onClick={handleClick}
+          >
+            Open Attendance
+          </button>
 
-            <button
-              className="border border-black px-3 py-2"
-              onClick={showLeaderboard}
-            >
-              Show Leaderboard
-            </button>
-          </div>
-          {toggleLeaderboard && <Users />}
+          <button
+            className="border border-black px-3 py-2 transition ease-in-out hover:bg-black hover:text-white"
+            onClick={showEventModal}
+          >
+            Create Event
+          </button>
         </div>
-      )}
+        <div className="text-center flex flex-col items-center pb-4">
+          <h1 className="font-bold text-xl underline pb-5 xl:pr-12">
+            Leaderboard
+          </h1>
+          <Users />
+        </div>
+        {toggleEvent && <EventModal />}
+      </div>
     </>
   );
 };

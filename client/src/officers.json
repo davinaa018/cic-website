@@ -1,0 +1,116 @@
+{
+  "officers": [
+    {
+      "id": 1,
+      "src": "./src/assets/officers/edwin.png",
+      "alt": "officer-1",
+      "name": "Edwin Tomy",
+      "role": "President"
+    },
+    {
+      "id": 2,
+      "src": "./src/assets/officers/aldo.png",
+      "alt": "officer-2",
+      "name": "Aldo Sanchez",
+      "role": "Vice President"
+    },
+    {
+      "id": 3,
+      "src": "./src/assets/officers/alexis.png",
+      "alt": "officer-3",
+      "name": "Alexis Rodriguez",
+      "role": "Chief Academic Officer"
+    },
+    {
+      "id": 4,
+      "src": "./src/assets/officers/susana.png",
+      "alt": "officer-4",
+      "name": "Susana Perez",
+      "role": "Lead Design"
+    },
+    {
+      "id": 5,
+      "src": "./src/assets/officers/danielA.png",
+      "alt": "officer-5",
+      "name": "Daniel Aguilar",
+      "role": "Treasurer"
+    },
+    {
+      "id": 6,
+      "src": "./src/assets/officers/matthew.png",
+      "alt": "officer-6",
+      "name": "Matthew Herrera",
+      "role": "Outreach Officer"
+    },
+    {
+      "id": 7,
+      "src": "./src/assets/officers/max.png",
+      "alt": "officer-7",
+      "name": "Maximiliano Uribe",
+      "role": "Communications Officer"
+    },
+    {
+      "id": 8,
+      "src": "./src/assets/officers/christina.png",
+      "alt": "officer-8",
+      "name": "Christina Valtierra",
+      "role": "Communications Officer"
+    },
+    {
+      "id": 9,
+      "src": "./src/assets/officers/jorge.png",
+      "alt": "officer-9",
+      "name": "Jorge Rodriguez",
+      "role": "Webmaster"
+    },
+    {
+      "id": 10,
+      "src": "./src/assets/officers/diego.png",
+      "alt": "officer-10",
+      "name": "Diego Avina",
+      "role": "Webmaster"
+    },
+    {
+      "id": 11,
+      "src": "./src/assets/officers/mayra.png",
+      "alt": "officer-11",
+      "name": "Mayra Robles",
+      "role": "Academic and Outreach "
+    },
+    {
+      "id": 12,
+      "src": "./src/assets/officers/robert.png",
+      "alt": "officer-12",
+      "name": "Robert Alvarez",
+      "role": "Academic and Outreach "
+    },
+    {
+      "id": 13,
+      "src": "./src/assets/officers/alejandra.png",
+      "alt": "officer-13",
+      "name": "Alejandra Mariscal",
+      "role": "Academic and Outreach "
+    },
+    {
+      "id": 14,
+      "src": "./src/assets/officers/danielR.png",
+      "alt": "officer-14",
+      "name": "Daniel Reyes",
+      "role": "Outreach Officer"
+    },
+    {
+      "id": 15,
+      "src": "./src/assets/officers/angel.png",
+      "alt": "officer-15",
+      "name": "Angel Ortega",
+      "role": "Staff Advisor"
+    },
+    {
+      "id": 16,
+      "src": "./src/assets/officers/cappy.png",
+      "alt": "officer-16",
+      "name": "Cappy",
+      "role": "Supreme Leader"
+    }
+  ]
+}
